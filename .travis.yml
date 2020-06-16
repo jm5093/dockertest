@@ -1,0 +1,15 @@
+#Require Docker 
+sudo: required
+language: generic
+
+services: 
+  - docker
+
+#build Dockerfile
+before_install:
+  - docker build -t jm5093/dockertest -f Dockerfile.dev .
+
+#Run test suite
+script:
+  - docker run -e CI=true jm5093/dockertest npm run test
+#Deploy to AWS
