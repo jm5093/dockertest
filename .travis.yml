@@ -13,3 +13,16 @@ before_install:
 script:
   - docker run -e CI=true jm5093/dockertest npm run test
 #Deploy to AWS
+
+deploy: 
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "dockertest"
+  env: "Dockertest-env"
+  bucket-name: "elasticbeanstalk-us-east-2-690141425200"
+  bucket-path: "dockertest"
+  on:
+    branch: master
+    #STORED IN TRAVIS-CI.ORG env config
+  access_key_id: $AWS_ACCESS_KEY  
+  secret_access_key: $AWS_SECRET_KEY 
